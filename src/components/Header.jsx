@@ -1,12 +1,23 @@
 import { useTodo } from "../useTodo";
 import { TodoTextInput } from "./TodoTextInput";
+import { motion } from "framer-motion";
 
 const Header = () => {
   const [, dispatch] = useTodo();
 
   return (
     <header className="header">
-      <h1>TODO LIST</h1>
+      <motion.h1
+        initial={{ scale: 0 }}
+        animate={{ scale: 1 }}
+        transition={{
+          duration: 1,
+          ease: "easeInOut",
+          delay: 0.2,
+        }}
+      >
+        TODO LIST
+      </motion.h1>
       <TodoTextInput
         newTodo
         onSave={(text) => {

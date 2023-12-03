@@ -1,6 +1,7 @@
 import { useTodo } from "../useTodo";
 import { Footer } from "./Footer";
 import { TodoList } from "./TodoList";
+import { motion } from "framer-motion";
 
 const getComputedCount = (todos) =>
   todos.reduce((count, todo) => (todo.completed ? count + 1 : count), 0);
@@ -11,7 +12,7 @@ const MainSec = () => {
   const completedCount = getComputedCount(todos);
 
   return (
-    <div className="main">
+    <motion.div layount className="main">
       {!!todosCount && (
         <span>
           <input
@@ -22,7 +23,16 @@ const MainSec = () => {
           <label onClick={() => dispatch({ type: "COMPLETE_ALL" })} />
         </span>
       )}
-      <TodoList todos={todos} visibilityFilter={visibilityFilter} />
+      <TodoList
+        todos={todos}
+        visibilityFilter={visibilityFilter}
+        setTodos={(todos) =>
+          dispatch({
+            type: "SET_TODOS",
+            payload: { todos },
+          })
+        }
+      />
       {!!todosCount && (
         <Footer
           completedCount={completedCount}
@@ -32,7 +42,7 @@ const MainSec = () => {
           }}
         />
       )}
-    </div>
+    </motion.div>
   );
 };
 
